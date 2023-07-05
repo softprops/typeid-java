@@ -15,6 +15,7 @@ plugins {
      `maven-publish`
      signing
      id("io.github.gradle-nexus.publish-plugin").version("1.0.0")
+     id("me.champeau.jmh") version "0.7.1"
 }
 
 // https://central.sonatype.org/publish/publish-guide/#introduction
