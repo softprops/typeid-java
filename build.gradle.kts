@@ -12,11 +12,97 @@ plugins {
     `java-library`
      id("com.github.mrsarm.jshell.plugin") version "1.2.1"
      id("com.adarshr.test-logger") version "3.2.0"
+     `maven-publish`
+     signing
+     id("io.github.gradle-nexus.publish-plugin").version("1.0.0")
 }
+
+// https://central.sonatype.org/publish/publish-guide/#introduction
+
+group = "me.lessis"
+version = "0.0.1-SNAPSHOT"
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+}
+
+tasks.jar {
+    manifest {
+        attributes(mapOf("Implementation-Title" to project.name,
+                "Implementation-Version" to project.version))
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            artifactId = "typeid"
+            from(components["java"])
+            versionMapping {
+                usage("java-api") {
+                    fromResolutionOf("runtimeClasspath")
+                }
+                usage("java-runtime") {
+                    fromResolutionResult()
+                }
+            }
+            pom {
+                name.set("typeid")
+                description.set("A TypeID implementation for Java")
+                url.set("https://github.com/softprops/typeid-java")
+                licenses {
+                    license {
+                        name.set("MIT")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("softprops")
+                        name.set("Doug Tangren")
+                        email.set("d.tangren@gmail.com")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git@github.com:softprops/typeid-java.git")
+                    developerConnection.set("scm:git:git@github.com:softprops/typeid-java.git")
+                    url.set("https://github.com/softprops/typeid-java/")
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            // https://central.sonatype.org/publish/publish-guide/#accessing-repositories
+            name = "OSSRH"
+            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
+            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            credentials(PasswordCredentials::class)
+        }
+    }
+}
+
+signing {
+    val signingKey: String? by project
+    val signingPassword: String? by project
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign(publishing.publications["mavenJava"])
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            username.set(System.getenv("OSSRH_USER") ?: return@sonatype)
+            password.set(System.getenv("OSSRH_PASSWORD") ?: return@sonatype)
+        }
+    }
 }
 
 tasks.withType<Test> {
