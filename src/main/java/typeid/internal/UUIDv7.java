@@ -3,8 +3,8 @@ package typeid.internal;
 import java.nio.ByteBuffer;
 import java.time.Clock;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A time based <a
@@ -13,7 +13,11 @@ import java.util.UUID;
  */
 public record UUIDv7(byte[] bytes) {
 
-  /** generates a new UUID with the default system clock and current thread local random */
+  /**
+   * generates a new UUID with the default system clock and current thread local random
+   *
+   * @return a new UUIDv7 instance
+   */
   public static UUIDv7 generate() {
     return generate(Clock.systemDefaultZone(), ThreadLocalRandom.current());
   }
@@ -55,6 +59,11 @@ public record UUIDv7(byte[] bytes) {
     return ((buf[offset] & 0xFF) << 8) + (buf[++offset] & 0xFF);
   }
 
+  /**
+   * Return a UUID representation of this TypeID
+   *
+   * @return a uuid instance
+   */
   public UUID uuid() {
     var buf = ByteBuffer.wrap(bytes);
     return new UUID(buf.getLong(), buf.getLong());

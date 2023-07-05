@@ -2,6 +2,7 @@ package typeid.internal;
 
 import java.util.Optional;
 
+/** a basic <a href="https://www.crockford.com/base32.html">crockford</a> impl */
 public class Base32 {
   private static final char[] ALPHABET = "0123456789abcdefghjkmnpqrstvwxyz".toCharArray();
   private static final int DECODE[] = {

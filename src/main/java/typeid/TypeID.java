@@ -10,8 +10,7 @@ import typeid.internal.UUIDv7;
 /**
  * A human friendly, k-sortable, type prefixed, uuid7 compatible identifier.
  *
- *  Values are expected to be constructed with <code>new TypeID("typename");<code>
- *
+ * <p>Values are expected to be constructed with <code>new TypeID("typename");</code>
  */
 public record TypeID(String prefix, String suffix) {
   private static final Predicate<String> PREFIX =
@@ -51,6 +50,11 @@ public record TypeID(String prefix, String suffix) {
     };
   }
 
+  /**
+   * Parses the string representation of a TypeID into an instance of a TypeID type
+   *
+   * @return Optional of a new TypeID present when valid, absent when not
+   */
   public static Optional<TypeID> fromString(String value) {
     var parts = value.split(DELIMETER);
     return switch (parts.length) {
