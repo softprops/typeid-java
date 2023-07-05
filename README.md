@@ -1,5 +1,7 @@
 # typeid
 
+[![Build](https://github.com/softprops/typeid-java/actions/workflows/main.yml/badge.svg)](https://github.com/softprops/typeid-java/actions/workflows/main.yml) ![License Info](https://img.shields.io/github/license/softprops/typeid-java)
+
 ## A Java implementation of [TypeID](https://github.com/jetpack-io/typeid).
 
 TypeIDs are a modern, **type-safe**, globally unique identifier based on the upcoming
