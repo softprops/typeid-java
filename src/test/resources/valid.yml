@@ -30,6 +30,11 @@
   prefix: ""
   uuid: "00000000-0000-0000-0000-000000000000"
 
+- name: max-valid
+  typeid: "7zzzzzzzzzzzzzzzzzzzzzzzzz"
+  prefix: ""
+  uuid: "ffffffff-ffff-ffff-ffff-ffffffffffff"
+
 - name: one
   typeid: "00000000000000000000000001"
   prefix: ""

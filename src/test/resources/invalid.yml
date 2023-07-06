@@ -81,3 +81,8 @@
   # This example would be valid if we were using the crockford hyphenation rules
   typeid: "prefix_123456789-0123456789-0123456"
   description: "The suffix can't ignore hyphens as in the crockford encoding"
+
+- name: suffix-overflow
+  # This is the first suffix that overflows into 129 bits
+  typeid: "prefix_8zzzzzzzzzzzzzzzzzzzzzzzzz"
+  description: "The should encode at most 128-bits"

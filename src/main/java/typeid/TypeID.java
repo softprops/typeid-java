@@ -16,7 +16,7 @@ public record TypeID(String prefix, String suffix) {
   private static final Predicate<String> PREFIX =
       Pattern.compile("^[a-z]{0,62}$").asMatchPredicate();
   private static final Predicate<String> SUFFIX =
-      Pattern.compile("^[0123456789abcdefghjkmnpqrstvwxyz]{1,26}$").asMatchPredicate();
+      Pattern.compile("^[0-7][0123456789abcdefghjkmnpqrstvwxyz]{1,25}$").asMatchPredicate();
   private static final String DELIMETER = "_";
 
   public TypeID {
