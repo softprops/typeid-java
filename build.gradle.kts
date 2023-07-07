@@ -21,7 +21,7 @@ plugins {
 // https://central.sonatype.org/publish/publish-guide/#introduction
 
 group = "me.lessis"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -78,16 +78,6 @@ publishing {
             }
         }
     }
-    repositories {
-        maven {
-            // https://central.sonatype.org/publish/publish-guide/#accessing-repositories
-            name = "OSSRH"
-            val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
-            credentials(PasswordCredentials::class)
-        }
-    }
 }
 
 signing {
@@ -97,6 +87,7 @@ signing {
     sign(publishing.publications["mavenJava"])
 }
 
+// https://oss.sonatype.org
 nexusPublishing {
     repositories {
         sonatype {

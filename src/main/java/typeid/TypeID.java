@@ -10,7 +10,9 @@ import typeid.internal.UUIDv7;
 /**
  * A human friendly, k-sortable, type prefixed, uuid7 compatible identifier.
  *
- * <p>Values are expected to be constructed with <code>new TypeID("typename");</code>
+ * <p>Values are expected to be constructed with <code>new TypeID("typename")</code>
+ * or parsed from their string representation with <code>TypeID.fromString("prefix_01h455vb4pex5vsknk084sn02q")</code>
+ *
  */
 public record TypeID(String prefix, String suffix) {
   private static final Predicate<String> PREFIX =
@@ -29,7 +31,7 @@ public record TypeID(String prefix, String suffix) {
   }
 
   /**
-   * create a new TypeID with a given prefix
+   * Creates a new TypeID instance with a given prefix.
    *
    * @param prefix prefix indicating the type of this id
    */
