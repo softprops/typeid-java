@@ -10,9 +10,9 @@ import typeid.internal.UUIDv7;
 /**
  * A human friendly, k-sortable, type prefixed, uuid7 compatible identifier.
  *
- * <p>Values are expected to be constructed with <code>new TypeID("typename")</code>
- * or parsed from their string representation with <code>TypeID.fromString("prefix_01h455vb4pex5vsknk084sn02q")</code>
- *
+ * <p>Values are expected to be constructed with <code>new TypeID("typename")</code> or parsed from
+ * their string representation with <code>TypeID.fromString("prefix_01h455vb4pex5vsknk084sn02q")
+ * </code>
  */
 public record TypeID(String prefix, String suffix) {
   private static final Predicate<String> PREFIX =
@@ -64,6 +64,11 @@ public record TypeID(String prefix, String suffix) {
       case 2 -> parts[0].isBlank() ? Optional.empty() : of(parts[0], parts[1]);
       default -> Optional.empty();
     };
+  }
+
+  /** Creates a new TypeID from an existing standard library UUID */
+  public static Optional<TypeID> fromUUID(String prefix, UUID uuid) {
+    return Base32.encode(UUIDv7.from(uuid).bytes()).flatMap(encoded -> of(prefix, encoded));
   }
 
   private static Optional<TypeID> of(String prefix, String suffix) {

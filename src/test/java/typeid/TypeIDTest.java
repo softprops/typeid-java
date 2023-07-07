@@ -10,7 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -41,6 +43,14 @@ class TypeIDTest {
   void twoWay() {
     var in = new TypeID("test");
     assertEquals(Optional.of(in), TypeID.fromString(in.toString()));
+  }
+
+  @Test
+  void fromUUID() {
+    var uuid = UUID.fromString("3c098018-c8b3-44f3-98b0-3bfaca73ec48");
+    assertEquals(
+        Optional.of("prefix_1w1601hj5k8ksshc1vzb577v28"),
+        TypeID.fromUUID("prefix", uuid).map(Objects::toString));
   }
 
   static Stream<Valid> validParams() throws IOException {

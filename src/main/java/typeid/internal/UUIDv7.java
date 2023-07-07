@@ -69,6 +69,13 @@ public record UUIDv7(byte[] bytes) {
     return new UUID(buf.getLong(), buf.getLong());
   }
 
+  public static UUIDv7 from(UUID uuid) {
+    var buf = ByteBuffer.wrap(new byte[16]);
+    buf.putLong(uuid.getMostSignificantBits());
+    buf.putLong(uuid.getLeastSignificantBits());
+    return new UUIDv7(buf.array());
+  }
+
   @Override
   public String toString() {
     return uuid().toString();
