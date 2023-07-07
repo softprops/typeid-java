@@ -21,7 +21,7 @@ plugins {
 // https://central.sonatype.org/publish/publish-guide/#introduction
 
 group = "me.lessis"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -122,4 +122,11 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
+}
+
+jmh {
+    warmupIterations.set(3)
+    iterations.set(2)
+    threads.set(1)
+    fork.set(1)
 }

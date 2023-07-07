@@ -16,7 +16,7 @@ To add this library as a dependency in your app add the following to your build
 ### Gradle
 
 ```kotlin
-implementation("me.lessis:typeid:0.0.1")
+implementation("me.lessis:typeid:0.0.2")
 ```
 
 ### Maven
@@ -25,7 +25,7 @@ implementation("me.lessis:typeid:0.0.1")
 <dependency>
     <groupId>me.lessis</groupId>
     <artifactId>typeid</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 </dependency>
 ```
 
