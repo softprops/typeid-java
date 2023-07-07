@@ -12,7 +12,8 @@ import typeid.internal.UUIDv7;
  *
  * <p>Values are expected to be constructed with <code>new TypeID("typename")</code> or parsed from
  * their string representation with <code>TypeID.fromString("prefix_01h455vb4pex5vsknk084sn02q")
- * </code>
+ * </code> or an existing standard library UUID <code>TypeID.fromUUID("prefix", uuid)</code> Values
+ * are serialized to their string format by calling <code>typeId.toString()</code>
  */
 public record TypeID(String prefix, String suffix) {
   private static final Predicate<String> PREFIX =
@@ -39,16 +40,17 @@ public record TypeID(String prefix, String suffix) {
     this(prefix, Base32.encode(UUIDv7.generate().bytes()).get());
   }
 
-  /** return suffix in standard UUID format */
+  /** Returns the TypeID's suffix in standard library UUID format */
   public UUID uuid() {
     return new UUIDv7(Base32.decode(suffix.getBytes()).get()).uuid();
   }
 
+  /** Returns a string representation of this TypeID */
   @Override
   public String toString() {
     return switch (prefix) {
       case "" -> suffix;
-      default -> prefix + DELIMETER + suffix;
+      default -> String.join(DELIMETER, prefix, suffix);
     };
   }
 
