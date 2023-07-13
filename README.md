@@ -31,13 +31,6 @@ implementation("me.lessis:typeid:0.0.2")
 
 ## Usage
 
-This library provides both a statically typed and a dynamically typed version of TypeIDs.
-
-The statically typed version lives under the `typed` package. It makes it possible for
-the go compiler itself to enforce type safety.
-
-To use it, first define your TypeID types:
-
 ```java
 import typeid.TypeID
 
